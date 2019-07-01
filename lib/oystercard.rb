@@ -9,7 +9,7 @@ MAX_BALANCE = 90
   end
 
   def top_up(amount)
-    raise "Maximum balance of #{MAX_BALANCE} exceeded" if (@balance + amount) > MAX_BALANCE
+    raise "Maximum balance of #{MAX_BALANCE} exceeded" if balance_exceeded?(amount)
     @balance += amount
   end
 
@@ -28,4 +28,11 @@ MAX_BALANCE = 90
   def in_journey?
     @in_journey = false
   end
+
+  private
+
+  def balance_exceeded?(amount)
+    (@balance + amount) > MAX_BALANCE
+  end
+
 end
