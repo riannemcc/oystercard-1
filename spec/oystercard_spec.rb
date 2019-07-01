@@ -2,6 +2,10 @@ require 'oystercard'
 
 describe Oystercard do
 
+  # In order to use public transport
+  # As a customer
+  # I want money on my card
+
   describe '#balance' do
     it 'card contains money' do
       balance = 100
@@ -10,30 +14,26 @@ describe Oystercard do
     end
   end
 
+  # In order to keep using public transport
+  # As a customer
+  # I want to add money to my card
+
   describe "#top_up" do
     it 'adds money to balance' do
       expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
     end
+    it 'raises error when maximum limit is exceeded' do
+      maximum_balance = Oystercard::MAX_BALANCE
+      subject.top_up(maximum_balance)
+      expect { subject.top_up 1 }.to raise_error "Maximum balance of #{maximum_balance} exceeded"
+    end
   end
+
+
 
 end
 
 
-
-
-
-
-
-
-
-
-# In order to use public transport
-# As a customer
-# I want money on my card
-
-# In order to keep using public transport
-# As a customer
-# I want to add money to my card
 
 # In order to protect my money
 # As a customer
