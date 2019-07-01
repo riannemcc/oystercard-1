@@ -67,6 +67,8 @@ describe Oystercard do
 
 end
 
+"Change"
+
 
 
 # In order to protect my money

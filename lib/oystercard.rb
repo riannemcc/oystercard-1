@@ -42,3 +42,5 @@ MIN_BALANCE = 1
   end
 
 end
+
+"Obama for CHANGE!"
