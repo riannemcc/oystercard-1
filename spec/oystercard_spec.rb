@@ -32,21 +32,38 @@ describe Oystercard do
   describe '#touch_in' do
     it 'raises error when funds under minimum_balance' do
       subject = Oystercard.new(0)
-      expect { subject.touch_in }.to raise_error "Insufficient funds"
+      station = 'Algate East'
+      expect { subject.touch_in(station) }.to raise_error "Insufficient funds"
     end
     it 'changes card status to "in journey"' do
       subject = Oystercard.new(5)
-      expect(subject.touch_in).to eq true
+      station = 'Algate East'
+      subject.touch_in(station)
+      expect(subject.in_journey?).to eq true
+    end
+    it 'accepts new entry_station' do
+      subject = Oystercard.new(5)
+      station = 'Algate East'
+      subject.touch_in(station)
+      expect(subject.entry_station).to eq station
     end
   end
 
   describe '#touch_out' do
     it 'changes card status to "not in journey' do
-        expect(subject.touch_out(0)).to eq false
+      subject.touch_out(0)
+      expect(subject.in_journey?).to eq false
     end
     it 'deducts money from card on touch out' do
         subject = Oystercard.new(10)
-        expect{ subject.touch_out(5) }.to change{ subject.balance }.by -5
+        expect{ subject.touch_out }.to change{ subject.balance }.by -1
+    end
+    it 'deletes entry_station' do
+      subject = Oystercard.new(5)
+      station = 'Algate East'
+      subject.touch_in(station)
+      subject.touch_out
+      expect(subject.entry_station).to eq nil
     end
   end
 
