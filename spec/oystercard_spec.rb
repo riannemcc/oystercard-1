@@ -35,6 +35,25 @@ describe Oystercard do
     end
   end
 
+  describe '#touch_in' do
+    it 'changes card status to "in journey"' do
+        expect(subject.touch_in).to eq true
+    end
+  end
+
+  describe '#touch_out' do
+    it 'changes card status to "not in journey"' do
+        expect(subject.touch_out).to eq false
+    end
+  end
+
+  describe '#in_journey?' do
+    it 'initially card is not "in journey"' do
+        expect(subject.in_journey?).to eq false
+    end
+  end
+
+
 end
 
 
