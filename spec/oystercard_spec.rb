@@ -29,12 +29,6 @@ describe Oystercard do
     end
   end
 
-  describe '#deduct' do
-    it 'deducts money from balance' do
-      expect{ subject.deduct 1 }.to change{ subject.balance }.by -1
-    end
-  end
-
   describe '#touch_in' do
     it 'raises error when funds under minimum_balance' do
       subject = Oystercard.new(0)
@@ -47,8 +41,12 @@ describe Oystercard do
   end
 
   describe '#touch_out' do
-    it 'changes card status to "not in journey"' do
-        expect(subject.touch_out).to eq false
+    it 'changes card status to "not in journey' do
+        expect(subject.touch_out(0)).to eq false
+    end
+    it 'deducts money from card on touch out' do
+        subject = Oystercard.new(10)
+        expect{ subject.touch_out(5) }.to change{ subject.balance }.by -5
     end
   end
 
@@ -66,10 +64,6 @@ describe Oystercard do
   end
 
 end
-
-"Change"
-
-
 
 # In order to protect my money
 # As a customer

@@ -14,16 +14,13 @@ MIN_BALANCE = 1
     @balance += amount
   end
 
-  def deduct(amount)
-    @balance -= amount
-  end
-
   def touch_in
     raise "Insufficient funds" if insufficient_balance?
     @in_journey = true
   end
 
-  def touch_out
+  def touch_out(cost)
+    deduct(cost)
     @in_journey = false
   end
 
@@ -41,6 +38,8 @@ MIN_BALANCE = 1
     (@balance + amount) > MAX_BALANCE
   end
 
-end
+  def deduct(amount)
+    @balance -= amount
+  end
 
-"Obama for CHANGE!"
+end
