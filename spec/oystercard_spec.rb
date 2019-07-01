@@ -1,16 +1,21 @@
 require 'oystercard'
 
 describe Oystercard do
-    
-    describe '#balance' do
-     it 'card contains money' do
-        balance = 100
-        subject = Oystercard.new(balance)
-        expect(subject.balance).to eq balance
-     end
 
+  describe '#balance' do
+    it 'card contains money' do
+      balance = 100
+      subject = Oystercard.new(balance)
+      expect(subject.balance).to eq balance
     end
-    
+  end
+
+  describe "#top_up" do
+    it 'adds money to balance' do
+      expect{ subject.top_up 1 }.to change{ subject.balance }.by 1
+    end
+  end
+
 end
 
 
