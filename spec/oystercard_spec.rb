@@ -55,8 +55,8 @@ describe Oystercard do
       expect(subject.in_journey?).to eq false
     end
     it 'deducts money from card on touch out' do
-        subject = Oystercard.new(10)
-        expect{ subject.touch_out }.to change{ subject.balance }.by -1
+      subject = Oystercard.new(10)
+      expect{ subject.touch_out }.to change{ subject.balance }.by -1
     end
     it 'deletes entry_station' do
       subject = Oystercard.new(5)
@@ -69,7 +69,7 @@ describe Oystercard do
 
   describe '#in_journey?' do
     it 'initially card is not "in journey"' do
-        expect(subject.in_journey?).to eq false
+      expect(subject.in_journey?).to eq false
     end
   end
 
