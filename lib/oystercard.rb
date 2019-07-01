@@ -1,6 +1,7 @@
 class Oystercard
 
 MAX_BALANCE = 90
+MIN_BALANCE = 1
 
   attr_reader :balance
 
@@ -18,6 +19,7 @@ MAX_BALANCE = 90
   end
 
   def touch_in
+    raise "Insufficient funds" if insufficient_balance?
     @in_journey = true
   end
 
@@ -27,6 +29,10 @@ MAX_BALANCE = 90
 
   def in_journey?
     @in_journey = false
+  end
+
+  def insufficient_balance?
+    @balance < MIN_BALANCE
   end
 
   private
