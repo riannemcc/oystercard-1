@@ -1,10 +1,11 @@
 class Journey
+   PENALTY_FARE = 6
 
     attr_reader  :entry_station, :exit_station, :journeys
 
-    def initialize(entry_station, exit_station)
+    def initialize(entry_station)
         @entry_station = entry_station
-        @exit_station = exit_station
+        # @exit_station = exit_station
         @journeys = []
     end
 
@@ -17,7 +18,13 @@ class Journey
     end
 
     def calculate_fare
-      Oystercard::MIN_CHARGE
+      current_journey = @journeys.last
+      p current_journey
+      if current_journey[:exit_station].empty?
+        PENALTY_FARE
+      else
+        Oystercard::MIN_CHARGE
+      end
     end
 
 end

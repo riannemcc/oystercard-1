@@ -5,7 +5,7 @@ require 'station'
 describe Journey do
 
     subject(:station) {Station.new(:name, 1)}
-    subject(:journey) {Journey.new(station, station)}
+    subject(:journey) {Journey.new(station)}
 
     it 'creates a new journey' do
         expect(subject).to be_instance_of(Journey)
@@ -20,7 +20,7 @@ describe Journey do
     it 'finishes a journey' do
       card = Oystercard.new(10)
       card.touch_out(station)
-      expect(subject.end_journey(journey.exit_station)).to eq station
+      expect(subject.end_journey.to eq station
     end
 
     it 'calculates a fare' do
@@ -28,6 +28,12 @@ describe Journey do
       subject.start_journey(journey.entry_station)
       subject.end_journey(journey.exit_station)
       expect(subject.calculate_fare).to eq 1
+    end
+
+    it 'returns penalty fare' do
+      card = Oystercard.new(10)
+      subject.start_journey(journey.entry_station)
+      expect(subject.calculate_fare).to eq 6
     end
 
 end
