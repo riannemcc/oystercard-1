@@ -1,4 +1,6 @@
 require 'oystercard'
+require 'journey'
+require 'station'
 
 describe Oystercard do
 
@@ -7,7 +9,7 @@ describe Oystercard do
   end
 
   describe '#balance' do
-  
+
     it 'card contains money' do
       balance = 100
       subject = Oystercard.new(balance)
