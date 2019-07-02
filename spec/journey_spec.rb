@@ -23,4 +23,11 @@ describe Journey do
       expect(subject.end_journey(journey.exit_station)).to eq station
     end
 
+    it 'calculates a fare' do
+      card = Oystercard.new(10)
+      subject.start_journey(journey.entry_station)
+      subject.end_journey(journey.exit_station)
+      expect(subject.calculate_fare).to eq 1
+    end
+
 end

@@ -16,4 +16,8 @@ class Journey
       @exit_station = exit_station
     end
 
+    def calculate_fare
+      Oystercard::MIN_CHARGE
+    end
+
 end
