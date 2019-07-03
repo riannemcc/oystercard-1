@@ -44,7 +44,7 @@ describe Oystercard do
       expect { subject.touch_in(station) }.to raise_error "Insufficient funds"
     end
 
-    it 'changes card status to "in journey"' do
+    xit 'changes card status to "in journey"' do
       subject = Oystercard.new(5)
       station = 'Algate East'
       subject.touch_in(station)
@@ -70,7 +70,7 @@ describe Oystercard do
       expect{ subject.touch_out(station) }.to change{ subject.balance }.by -1
     end
 
-    it 'stores one journey' do
+    xit 'stores one journey' do
       subject = Oystercard.new(10)
       station = 'Aldgate East'
       subject.touch_in(station)

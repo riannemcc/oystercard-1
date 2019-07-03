@@ -1,6 +1,6 @@
 class JourneyLog
 
-  attr_reader :journey_class, :journeys
+  attr_reader :journey_class
 
   def initialize(journey_class: Journey)
     @journey_class = journey_class
@@ -13,9 +13,12 @@ class JourneyLog
   end
 
   def finish(station)
-    @journey.end_journey(exit_station)
+    @journeys.last.end_journey(exit_station)
   end
 
+  def journeys
+    @journeys.dup
+  end
 
   private
   attr_reader :journey_class

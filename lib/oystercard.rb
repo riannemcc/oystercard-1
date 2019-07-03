@@ -19,15 +19,15 @@ MIN_CHARGE = 1
 
   def touch_in(station)
     raise "Insufficient funds" if insufficient_balance?
-    current_journey = Journey.new(station)
-    @journeys << current_journey
-    @journeys.last
+    # current_journey = Journey.new(station)
+    # @journeys << current_journey
+    # @journeys.last
   end
 
   def touch_out(station)
     deduct(MIN_CHARGE)
-    @journeys.last.end_journey(station)
-    @journeys
+    # @journeys.last.end_journey(station)
+    # @journeys
   end
 
   def in_journey?
