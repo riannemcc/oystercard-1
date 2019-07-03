@@ -8,6 +8,10 @@ describe Oystercard do
     expect(subject.journeys).to eq []
   end
 
+  it 'should not be in journey initially' do
+    expect(subject.in_journey?).to be false
+  end
+
   describe '#balance' do
 
     it 'card contains money' do
@@ -47,19 +51,14 @@ describe Oystercard do
       expect(subject.in_journey?).to eq true
     end
 
-    it 'accepts new entry_station' do
-      subject = Oystercard.new(5)
-      station = 'Algate East'
-      subject.touch_in(station)
-      expect(subject.entry_station).to eq station
-    end
-
   end
 
   describe '#touch_out' do
 
-    it 'changes card status to "not in journey' do
+    it 'changes card status to "not in journey"' do
       station = 'Aldgate East'
+      subject.top_up(10)
+      subject.touch_in(station)
       subject.touch_out(station)
       expect(subject.in_journey?).to eq false
     end
@@ -67,29 +66,18 @@ describe Oystercard do
     it 'deducts money from card on touch out' do
       subject = Oystercard.new(10)
       station = 'Aldgate East'
-      expect{ subject.touch_out(station) }.to change{ subject.balance }.by -1
-    end
-
-    it 'deletes entry_station' do
-      subject = Oystercard.new(5)
-      station = 'Aldgate East'
       subject.touch_in(station)
-      expect { subject.touch_out(station) }.to change{ subject.entry_station }.to nil
+      expect{ subject.touch_out(station) }.to change{ subject.balance }.by -1
     end
 
     it 'stores one journey' do
       subject = Oystercard.new(10)
       station = 'Aldgate East'
       subject.touch_in(station)
-      expect(subject.touch_out(station)).to eq [{entry_station: station, exit_station: station}]
-    end
-  
-  end
-
-  describe '#in_journey?' do
-
-    it 'initially card is not "in journey"' do
-      expect(subject.in_journey?).to eq false
+      subject.touch_out(station)
+      expect(subject.journeys.length).to eq 1
+      expect(subject.journeys.last.entry_station).to eq station
+      expect(subject.journeys.last.exit_station).to eq station
     end
 
   end

@@ -11,29 +11,37 @@ describe Journey do
         expect(subject).to be_instance_of(Journey)
     end
 
-    it 'starts a new journey' do
-        card = Oystercard.new(10)
-        card.touch_in(station)
-        expect(subject.start_journey(journey.entry_station)).to eq station
+    it 'creates a new journey with the given entry_station' do
+        expect(journey.entry_station).to eq station
     end
 
-    it 'finishes a journey' do
-      card = Oystercard.new(10)
-      card.touch_out(station)
-      expect(subject.end_journey.to eq station
+    it 'should not be complete on initialization' do
+      expect(journey.is_complete).to be false
     end
 
-    it 'calculates a fare' do
-      card = Oystercard.new(10)
-      subject.start_journey(journey.entry_station)
-      subject.end_journey(journey.exit_station)
-      expect(subject.calculate_fare).to eq 1
+    context '#end_journey' do
+      it 'sets exit_station' do
+        station2 = double(:station2)
+        journey.end_journey(station2)
+        expect(journey.exit_station).to eq station2
+      end
+
+      it 'set complete to true' do
+        station2 = double(:station2)
+        journey.end_journey(station2)
+        expect(journey.is_complete).to be true
+      end
     end
 
-    it 'returns penalty fare' do
-      card = Oystercard.new(10)
-      subject.start_journey(journey.entry_station)
-      expect(subject.calculate_fare).to eq 6
-    end
+    context '#calculate_fare' do
+      it 'returns min charge when exit_station is set' do
+        station2 = double(:station2)
+        journey.end_journey(station2)
+        expect(journey.calculate_fare).to eq Oystercard::MIN_CHARGE
+      end
 
+      it 'returns penalty fare when no exit_station' do
+        expect(journey.calculate_fare).to eq Journey::PENALTY_FARE
+      end
+    end
 end
