@@ -25,7 +25,7 @@ MIN_CHARGE = 1
   end
 
   def touch_out(station)
-    deduct(1)
+    deduct(MIN_CHARGE)
     @journeys.last.end_journey(station)
     @journeys
   end
