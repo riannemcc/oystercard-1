@@ -1,23 +1,22 @@
 class Journey
-   PENALTY_FARE = 6
 
     attr_reader  :entry_station, :exit_station, :is_complete
 
-    def initialize(entry_station)
-        @entry_station = entry_station
+    def initialize(station, zone)
+        @entry_station = station
         @is_complete = false
     end
 
-    def end_journey(exit_station)
-      @exit_station = exit_station
+    def end_journey(station, zone)
+      @exit_station = station
       @is_complete = true
     end
 
     def calculate_fare
       if @exit_station
-        Oystercard::MIN_CHARGE
+        Fare::MIN_CHARGE
       else
-        PENALTY_FARE
+        Fare::PENALTY_FARE
       end
     end
 

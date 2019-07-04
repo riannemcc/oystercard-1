@@ -1,6 +1,9 @@
+require 'journey'
+
 class JourneyLog
 
   attr_reader :journey_class
+  attr_reader :journeys
 
   def initialize(journey_class: Journey)
     @journey_class = journey_class
@@ -8,13 +11,13 @@ class JourneyLog
     @current_journey = nil
   end
 
-  def start(station)
-    @current_journey = journey_class.new(entry_station: station)
+  def start(station, zone)
+    @current_journey = journey_class.new(station, zone)
     @journeys << @current_journey
   end
 
-  def finish(station)
-    current_journey.end_journey(station)
+  def finish(station, zone)
+    current_journey.end_journey(station, zone)
     @current_journey = nil
   end
 
