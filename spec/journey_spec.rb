@@ -32,13 +32,4 @@ describe Journey do
         expect(journey.is_complete).to be true
       end
     end
-
-    context '#calculate_fare' do
-      xit 'returns min charge when exit_station is set' do
-        station2 = double(:station2)
-        journey.end_journey(station2)
-        expect(journey.calculate_fare).to eq Fare::MIN_CHARGE
-      end
-
-    end
-end
+  end
