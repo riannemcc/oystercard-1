@@ -34,47 +34,18 @@ describe Oystercard do
       subject = Oystercard.new(0)
       station = 'Algate East'
       zone = 1
-      expect { subject.touch_in(station, zone) }.to raise_error "Insufficient funds"
-    end
-
-    xit 'changes card status to "in journey"' do
-      subject = Oystercard.new(5)
-      station = 'Algate East'
-      zone = 1
-      subject.touch_in(station, zone)
-      expect(subject.in_journey?).to eq true
+      expect { subject.touch_in(station) }.to raise_error "Insufficient funds"
     end
 
   end
 
   describe '#touch_out' do
 
-    # it 'changes card status to "not in journey"' do
-    #   station = 'Aldgate East'
-    #   zone = 1
-    #   subject.top_up(10)
-    #   subject.touch_in(station, zone)
-    #   subject.touch_out(station, zone)
-    #   expect(subject.in_journey?).to eq false
-    # end
-
     it 'deducts money from card on touch out' do
       subject = Oystercard.new(10)
-      station = 'Aldgate East'
-      zone = 1
-      subject.touch_in(station, zone)
-      expect{ subject.touch_out(station, zone) }.to change{ subject.balance }.by -1
-    end
-
-    xit 'stores one journey' do
-      subject = Oystercard.new(10)
-      station = 'Aldgate East'
-      zone = 1
-      subject.touch_in(station, zone)
-      subject.touch_out(station, zone)
-      expect(subject.journeys.length).to eq 1
-      expect(subject.journeys.last.entry_station).to eq station
-      expect(subject.journeys.last.exit_station).to eq station
+      station = Station.new('Aldgate', 1)
+      subject.touch_in(station)
+      expect{ subject.touch_out(station) }.to change{ subject.balance }.by -1
     end
 
   end

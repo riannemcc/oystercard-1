@@ -7,7 +7,7 @@ describe Journey do
 
     let(:station){ double :station }
     let(:zone){ double :zone }
-    subject(:journey) {Journey.new(station, zone)}
+    subject(:journey) {Journey.new(station)}
 
     it 'creates a new journey' do
         expect(subject).to be_instance_of(Journey)
@@ -23,12 +23,12 @@ describe Journey do
 
     context '#end_journey' do
       it 'sets exit_station' do
-        journey.end_journey(station, zone)
+        journey.end_journey(station)
         expect(journey.exit_station).to eq station
       end
 
       it 'set complete to true' do
-        journey.end_journey(station, zone)
+        journey.end_journey(station)
         expect(journey.is_complete).to be true
       end
     end
@@ -40,8 +40,5 @@ describe Journey do
         expect(journey.calculate_fare).to eq Fare::MIN_CHARGE
       end
 
-      xit 'returns penalty fare when no exit_station' do
-        expect(journey.calculate_fare).to eq Fare::PENALTY_FARE
-      end
     end
 end

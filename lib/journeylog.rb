@@ -11,18 +11,22 @@ class JourneyLog
     @current_journey = nil
   end
 
-  def start(station, zone)
-    @current_journey = journey_class.new(station, zone)
+  def start(station)
+    @current_journey = journey_class.new(station)
     @journeys << @current_journey
   end
 
-  def finish(station, zone)
-    current_journey.end_journey(station, zone)
+  def finish(station)
+    current_journey.end_journey(station)
     @current_journey = nil
   end
 
   def journeys
     @journeys.dup
+  end
+
+  def last_journey_fare
+    @journeys.last.calculate_fare
   end
 
   private

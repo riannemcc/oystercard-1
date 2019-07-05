@@ -18,24 +18,15 @@ class Oystercard
     @balance += amount
   end
 
-  def touch_in(station, zone)
+  def touch_in(station)
     raise "Insufficient funds" if insufficient_balance?
-    @journey_log.start(station, zone)
-    # current_journey = Journey.new(station)
-    # @journeys << current_journey
-    # @journeys.last
+    @journey_log.start(station)
   end
 
-  def touch_out(station, zone)
-    deduct(Fare::MIN_CHARGE)
-    @journey_log.finish(station, zone)
-    # @journeys.last.end_journey(station)
-    # @journeys
+  def touch_out(station)
+    @journey_log.finish(station)
+    deduct(@journey_log.last_journey_fare)
   end
-
-  # def in_journey?
-  #   @journeys.length > 0 && !@journeys.last.is_complete
-  # end
 
   def insufficient_balance?
     @balance < Fare::MIN_CHARGE
